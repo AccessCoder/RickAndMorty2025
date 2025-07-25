@@ -19,7 +19,7 @@ public class RickAndMortyService {
     }
 
     public List<RickAndMortyChar> getAllChars() {
-        return restClient.post()
+        return restClient.get()
                 .uri("/character")
                 .retrieve()
                 .body(RickAndMortyResponse.class)
@@ -33,5 +33,22 @@ public class RickAndMortyService {
                 .retrieve()
                 .body(RickAndMortyChar.class);
 
+    }
+
+    public List<RickAndMortyChar> getCharsByStatus(String status) {
+        return restClient.get()
+                .uri("/character/?status="+status)
+                .retrieve()
+                .body(RickAndMortyResponse.class)
+                .results();
+    }
+
+    public int getSpeciesStatistic(String species) {
+        return restClient.get()
+                .uri("/character/?species="+species)
+                .retrieve()
+                .body(RickAndMortyResponse.class)
+                .info()
+                .count();
     }
 }
